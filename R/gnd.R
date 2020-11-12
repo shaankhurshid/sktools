@@ -1,4 +1,5 @@
-# Functions to calculate GND test of calibration
+#' Calculate GND test of calibration
+#' @export
 
 kmdec=function(dec.num,dec.name, datain, adm.cens){
   stopped=0

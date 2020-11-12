@@ -1,5 +1,6 @@
-# This function computes the cumulative sum of the difference between the next row and the current row
-
+#' This function computes the cumulative sum of the difference between the next row and the current row
+#' @export
+ 
 comparator <- function(x){
   out <- rep(NA,times=length(x))
   for (i in 1:length(x)){

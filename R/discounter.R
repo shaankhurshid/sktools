@@ -1,4 +1,6 @@
-# Function to perform annunity based discounting
+#' Function to perform annuity-based discounting
+#' @export
+
 discounter <- function(time=time, rate=0.03){
   out <- rep(NA,times=time)
   for(i in 1:time){

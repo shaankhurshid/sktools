@@ -1,4 +1,7 @@
-# Function to generate survival estimates per AF risk quantile
+#' Generates cumulative incidence estimates at a specified time
+#' Dataset must be a data.frame. If given a data.table, a shallow data.frame copy will be made.
+#' @export
+
 survivor <- function(data,risk_data,event,time,breakpoint){
   est <- rep(NA,times=length(unique(data[,risk_data])))
   lower <- rep(NA,times=length(unique(data[,risk_data])))

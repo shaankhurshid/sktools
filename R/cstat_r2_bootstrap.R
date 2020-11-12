@@ -1,16 +1,14 @@
-# Script to obtain time-dependent AUC/c-stat and model pseudo-R2 with 95% CI using bootstrapping
-# Dataset must be a data.frame
-
-# Dependencies
-library(rms)
+#' Script to obtain time-dependent AUC/c-stat and model pseudo-R2 with 95% CI using bootstrapping
+#' Dataset must be a data.frame. If given a data.table, a shallow data.frame copy will be made.
+#' @export
 
 # Bootstrap function
 boot_cr2 <- function(time,status,response,data,runs,size){
-  if (is.data.table(data)==TRUE){data <- as.data.frame(data)}
+  if (data.table::is.data.table(data)==TRUE){data <- as.data.frame(data)}
   out <- cbind(rep(NA,times=runs),rep(NA,times=runs))
   for (i in 1:runs){
     sample <- data[sample(1:nrow(data),size=size,replace=TRUE),]
-    out[i,1] <- cph(Surv(sample[,time],sample[,status]) ~ sample[,response],data=sample)$stats['R2']
+    out[i,1] <- rms::cph(Surv(sample[,time],sample[,status]) ~ sample[,response],data=sample)$stats['R2']
     out[i,2] <- concordance(coxph(Surv(sample[,time],sample[,status]) ~ sample[,response],data=sample))$concordance
     print(paste0('run ',i,' complete'))
   }

@@ -1,7 +1,6 @@
-# This function computes the cumulative sum of the difference between the next row and the current row
-# Optional stratification by categorical variable
-
-library(data.table)
+#' Calculates person-time incidence rate
+#' Optional calculation by strata
+#' @export
 
 ir <- function(data,strata=NULL,time,status){
   out <- list()

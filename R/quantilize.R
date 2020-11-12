@@ -1,4 +1,6 @@
-# Quantile sorter
+#' Classify data into quantiles of specified size
+#' @export
+
 quantilize <- function(risk,ncuts){
   cuts <- quantile(risk,probs=seq(0,1,1/ncuts))
   index <- rep(NA,length(risk))

@@ -1,3 +1,4 @@
-# This function says hello
+#' Says hello
+#' @export
 
 hello <- function(x){print('Hello, World!')}
