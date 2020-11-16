@@ -1,27 +1,14 @@
 #' Calculate GND test of calibration
+#' @param pred predicted risk
+#' @param tvar time variale
+#' @param out outcome variable
+#' @param cens.t variable denoting censoring (1 = censored, 0 = not censored)
+#' @param groups quantiles for comparison (usually 10)
+#' @param adm.cens administrative censoring time
+#' @example
+#' calib_charge <- GND.calib(pred=test$charge_pred5/100,tvar=test$af_5y.t, out=test$incd_af_5y,groups=test$pred_risk_quintile_clinical,cens.t=test$censored,adm.cens=5)
 #' @export
 
-kmdec=function(dec.num,dec.name, datain, adm.cens){
-  stopped=0
-  data.sub=datain[datain[,dec.name]==dec.num,]
-  if (sum(data.sub$out)>1){
-    avsurv=survfit(Surv(tvar,out) ~ 1, data=datain[datain[,dec.name]==dec.num,], error="g")
-    avsurv.est=ifelse(min(avsurv$time)<=adm.cens,avsurv$surv[avsurv$time==max(avsurv$time[avsurv$time<=adm.cens])],1)
-    
-    avsurv.stderr=ifelse(min(avsurv$time)<=adm.cens,avsurv$std.err[avsurv$time==max(avsurv$time[avsurv$time<=adm.cens])],0)
-    avsurv.stderr=avsurv.stderr*avsurv.est
-    
-    avsurv.num=ifelse(min(avsurv$time)<=adm.cens,avsurv$n.risk[avsurv$time==max(avsurv$time[avsurv$time<=adm.cens])],0)
-    
-  } else {
-    return(c(0,0,0,0,stopped=-1))
-  }
-  
-  if (sum(data.sub$out)<5) stopped=1
-  c(avsurv.est, avsurv.stderr, avsurv.num, dec.num, stopped) 
-}#kmdec
-
-# B. GND function
 GND_calib = function(pred, tvar, out, cens.t, groups, adm.cens){
   output <- list()
   
