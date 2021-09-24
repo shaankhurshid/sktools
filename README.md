@@ -1,2 +1,2 @@
 # sktools
-random scripts
+miscellaneous helper functions for performing statistical analyses
