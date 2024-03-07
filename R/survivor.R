@@ -1,5 +1,5 @@
 #' Generates cumulative incidence estimates at a specified time
-#' Dataset must be a data.frame. If given a data.table, a shallow data.frame copy will be made.
+#' Dataset must be a data.frame.
 #' @export
 
 survivor <- function(data,risk_data,event,time,breakpoint){
